@@ -82,7 +82,7 @@
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
         "test-compile": "webpack --mode development",
-        "package": "vsce package -o releases.vsix --yarn --dependencies"
+        "package": "vsce package"
     },
     "devDependencies": {
         "@types/node": "^10.14.17",
