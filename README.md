@@ -17,6 +17,13 @@ See [js-sequence-diagrams](https://bramp.github.io/js-sequence-diagrams/) for sy
 | `sequencediagrams.diagram.style` | The diagram style. Select between `hand` for hand drawn diagram or `simple` for diagram with simple straight lines. |
 | `sequencediagrams.preview.trigger` | Configure the preview refresh on every change or on file save. Select between `onChange` and `onSave`. |
 
+## Release .vsix
+
+```
+yarn package
+```
+
+
 ## Publishing 
 
 ### Building the extension package
