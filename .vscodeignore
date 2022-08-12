@@ -1,0 +1,7 @@
+.vscode
+out/
+src/
+node_modules/
+tsconfig.json
+webpack.config.js
+vsc-extension-quickstart.md

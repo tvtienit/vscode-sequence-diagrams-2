@@ -1,0 +1,41 @@
+participant User
+participant Website
+participant Google OAuth
+participant Auth SDK
+participant HTTP Service
+participant TKey Service
+participant Notification Service
+participant Mailbox
+Title: Login with Google
+User->Website: Access
+User->Website: Click Login with Google
+Website->Auth SDK: Login: Google
+Auth SDK->HTTP Service: Send login request (login type,\nclient's callback uri)
+Note over HTTP Service: Prepare OAuth state
+HTTP Service-->Auth SDK: Response: Redirect with\nstate, appId, appSecret, callbackUri
+Auth SDK-->User: Redirect to Google
+User->Google OAuth: Access and pick an account
+Google OAuth-->User: Consent?
+User->Google OAuth: OK
+Google OAuth-->HTTP Service: Redirect via callbackUri
+Note over HTTP Service: Request for access token\nand set to the cookies
+HTTP Service->TKey Service: Verification info (email, login type,\naccess token...)
+Note over TKey Service: Create new user
+TKey Service-->HTTP Service: User info
+HTTP Service-->Website: Redirect
+Auth SDK->HTTP Service: Get user info
+HTTP Service-->Auth SDK: User info
+Note over Auth SDK: Initialize local\nwallet instance
+Auth SDK-->User: Ask for entering pin code
+User->Auth SDK: Enter pin code
+Note over Auth SDK: Generate private key\n and split it into 3 shares
+Note over Auth SDK: Encrypt all of 3 shares by\nthe pin code
+Note over Auth SDK: Store Share A on user’s\ndevice
+Auth SDK->HTTP Service: Share B (type=MIRAI_MANAGE)
+HTTP Service->TKey Service: Update user's share
+Note over TKey Service: Store Share B\non database by\nemail address, login type
+TKey Service-->HTTP Service: OK
+Auth SDK->HTTP Service: Share C (type=RECOVERY)
+HTTP Service->Notification Service: Share C
+Notification Service->Mailbox: Send an email containing\nShare C (user’s backup)
+Mailbox->User: New email notification
