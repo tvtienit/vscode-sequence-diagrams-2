@@ -1,8 +1,8 @@
 // import bufferImage from 'buffer-image';
 import { writeFileSync } from 'fs';
 import * as path from 'path';
-import sharp from 'sharp';
 import * as vscode from 'vscode';
+import {Resvg} from '@resvg/resvg-js';
 import logger from './logger';
 import * as utils from './utils';
 
@@ -59,8 +59,11 @@ export default class previewContentProvider {
                     break;
                 case 'export-png':
                     extension = "png";
+                    const resvg = new Resvg(Buffer.from(message.data, 'base64').toString('binary'));
                     exportFileName = this._getExportFileName(extension);
-                    const pngBuffer = await sharp(Buffer.from(message.data, 'base64')).png().toBuffer();
+                    //const pngBuffer = await sharp(Buffer.from(message.data, 'base64')).png().toBuffer();
+                    const pngData = resvg.render();
+                    const pngBuffer = pngData.asPng();
                     writeFileSync(exportFileName, pngBuffer);
                     break;
             }

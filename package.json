@@ -1,6 +1,6 @@
 {
-    "name": "vscode-sequence-diagrams-2",
-    "displayName": "VSCode Sequence Diagrams 2",
+    "name": "vscode-sequence-diagrams",
+    "displayName": "VSCode Sequence Diagrams",
     "description": "Generates UML sequence diagrams from simple text",
     "version": "1.0.3",
     "publisher": "AleksandarDev",
@@ -82,7 +82,7 @@
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
         "test-compile": "webpack --mode development",
-        "package": "vsce package -o releases/ --yarn --dependencies"
+        "package": "vsce package -o releases.vsix --yarn --dependencies"
     },
     "devDependencies": {
         "@types/node": "^10.14.17",
@@ -96,8 +96,7 @@
         "webpack-cli": "^4.1.0"
     },
     "dependencies": {
-        "@types/sharp": "^0.30.5",
-        "sharp": "^0.30.7"
+        "@resvg/resvg-js": "^2.1.0"
     },
     "vsce": {
         "dependencies": true,
