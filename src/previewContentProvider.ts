@@ -59,9 +59,19 @@ export default class previewContentProvider {
                     break;
                 case 'export-png':
                     extension = "png";
-                    const resvg = new Resvg(Buffer.from(message.data, 'base64').toString('binary'));
+                    const resvg = new Resvg(Buffer.from(message.data, 'base64').toString('binary'), {
+                        background: '#fafafa',
+                        fitTo: {
+                            mode: 'original'
+                        },
+                        // font: {
+                        //     fontFiles: ['./deps/js-sequence-diagrams/danielbd.woff', './deps/js-sequence-diagrams/danielbd.woff2'],
+                        //     loadSystemFonts: false,
+                        //     defaultFontFamily: 'danielbd'
+                        // }
+                        
+                    });
                     exportFileName = this._getExportFileName(extension);
-                    //const pngBuffer = await sharp(Buffer.from(message.data, 'base64')).png().toBuffer();
                     const pngData = resvg.render();
                     const pngBuffer = pngData.asPng();
                     writeFileSync(exportFileName, pngBuffer);
